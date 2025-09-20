@@ -1,0 +1,231 @@
+---
+title: "20074027 STAT2003 TASK 2"
+author: "Bruce Odek Omondi"
+date: "2025-05-12"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# QUESTION B
+## 1. Part 1: Analysis for 16-run design only with a 2-level factorial design
+
+Opening the dataset
+```{r}
+# Load required packages
+library(tidyverse)
+
+# Read data
+drugdata <- read.csv("antiviraldrugs.csv")
+```
+
+
+Start by subsetting the dataset to include only the first 16 runs for 2-level factorial design
+```{r}
+# Subset only the first 16 runs
+drugdata_16 <- drugdata[1:16, ]
+```
+
+Then define the model that will be used to get the effect estimates
+```{r}
+# get the average readout and encode replicates as -1 and 1 
+drugs16 <- drugdata_16 %>%
+  mutate(avg_readout = (Replicate1 + Replicate2) / 2,
+         replicate = rep(c(-1, 1), each = 8))
+
+# model on the first 16 runs
+model16 <- lm(avg_readout ~ A + B + C + D + E +
+                  A:B + A:C + A:D + A:E +
+                  B:C + B:D + B:E +
+                  C:D + C:E + D:E +
+                  replicate,
+                data = drugs16)
+
+summary(model16)
+```
+
+The model turns out to be saturated (no degrees of freedom, p-val, etc.) so we cannot get the significance of the estimates. According to the textbook, this situation calls for the use of fold-over for the factorial design.
+
+Fixing the 16-run design using fold-over to allow us to get the significance of the effect estimates
+```{r}
+# load libraries
+library(tidyverse)
+
+# getting only the first 16 runs 
+original16 <- drugdata[1:16, ] %>%
+  mutate(
+    avg_readout = (Replicate1 + Replicate2) / 2,  # average of Rep 1 and 2
+    replicate = rep(c(-1, 1), each = 8)           # encode replicates as -1 and 1
+  )
+```
+
+
+Fold-over requires us to flip the signs of all the levels for each factor 
+```{r}
+# create folded-over design by reversing the signs of all factor levels
+foldover16 <- original16 %>%
+  mutate(
+    A = -A, B = -B, C = -C, D = -D, E = -E,        # reverse signs as required for fold-over
+    Run = Run + 100                                # label the foldover to differentiate from first 16
+  )
+```
+
+
+Since we don't have actual data for the fold-over runs, I opted to simulate readout values for the fold-over runs. Ideally, these would be actual data from doing the fold-over during the experiment
+```{r}
+# simulate placeholder readout values for fold-over runs
+set.seed(123)  # for reproducibility
+
+foldover16$avg_readout <- rnorm(16, mean = mean(original16$avg_readout), sd = sd(original16$avg_readout))
+foldover16$replicate <- rep(c(-1, 1), each = 8)
+
+# combine original and fold-over data into one dataset which will have 32 runs total
+folded_data <- bind_rows(original16, foldover16)
+
+# fit full second-order interaction model using the combined data 
+model_folded <- lm(avg_readout ~ A + B + C + D + E +
+                                 A:B + A:C + A:D + A:E +
+                                 B:C + B:D + B:E +
+                                 C:D + C:E + D:E +
+                                 replicate,
+                   data = folded_data)
+```
+
+
+Then I defined a function that would be used to plot the half-normal plots of effects
+```{r}
+# define and generate a half-normal plot to assess effect significance
+custom_half_normal <- function(model, model_name) {
+  effects <- coef(model)[-1]  # exclude intercept
+  abs_effects <- sort(abs(effects), decreasing = FALSE)
+  n <- length(abs_effects)
+  quantiles <- qnorm((1:n - 0.5) / n)
+  
+  plot(quantiles, abs_effects,
+       main = paste("Half-Normal Plot –", model_name),
+       xlab = "Normal Quantiles", ylab = "Absolute Effect", pch = 19)
+  text(quantiles, abs_effects, labels = names(abs_effects), pos = 3, cex = 0.7)
+  abline(lm(abs_effects ~ quantiles), col = "blue", lty = 2)
+}
+
+# output the summary and the plots
+summary(model_folded)                    # Check model estimates
+custom_half_normal(model_folded, "Foldover 32-Run Model")  # Plot effect significance
+
+```
+
+Running some model diagnostic checks
+```{r}
+# Plot standard diagnostic plots starting with the basic 4 plots
+par(mfrow = c(2, 2))
+plot(model_folded)
+
+# and some additional checks for normality
+# Histogram of residuals
+par(mfrow = c(1, 1))  # Reset layout
+hist(residuals(model_folded), main = "Histogram of Residuals",
+     xlab = "Residuals", col = "lightblue", breaks = 10)
+
+# Shapiro-Wilk test
+shapiro.test(residuals(model_folded))
+```
+
+
+
+## 2. Part 2(Bonus marks): Analysis to replicate estimates a,b, and c in Table III using all 34 runs (16-run and 18-run designs combined as they did in the paper)
+
+I. Estimates in Table III (a) with y=readout and all runs included
+```{r}
+# we use the average readout, so y= readout
+drugs_a <- drugdata %>%
+  mutate(avg_readout = (Replicate1 + Replicate2) / 2,
+         replicate = rep(c(-1, 1), each = 17))
+
+# Fit full second-order model using raw response
+model_a <- lm(avg_readout ~ A + B + C + D + E +
+                I(A^2) + I(B^2) + I(C^2) + I(D^2) + I(E^2) +
+                A:B + A:C + A:D + A:E +
+                B:C + B:D + B:E +
+                C:D + C:E + D:E +
+                replicate,
+              data = drugs_a)
+
+# Summary of model (estimates should match Table III(a))
+summary(model_a)
+
+```
+
+
+II. Estimates in Table III (b) with y= sqrt(readout) after transformation and all runs included 
+```{r}
+# use the data but with y= sqrt(readout)
+drugs_b <- drugdata %>%
+  mutate(avg_readout = (Replicate1 + Replicate2) / 2,
+         sqrt_readout = sqrt(avg_readout),
+         replicate = rep(c(-1, 1), each = 17))
+
+# fit model using sqrt(readout)
+model_b <- lm(sqrt_readout ~ A + B + C + D + E +
+                I(A^2) + I(B^2) + I(C^2) + I(D^2) + I(E^2) +
+                A:B + A:C + A:D + A:E +
+                B:C + B:D + B:E +
+                C:D + C:E + D:E +
+                replicate,
+              data = drugs_b)
+
+# Summary of model (estimates should match Table III(b))
+summary(model_b)
+```
+
+
+III. Estimates in Table III (c) with y= sqrt(readout) and Replicate 1 of run 14 removed
+```{r}
+# Clean the dataset - remove replicate 1 of run 14 and use sqrt(readout)
+drugs_c <- drugdata %>%
+  mutate(Replicate1 = ifelse(Run == 14, NA, Replicate1)) %>%
+  mutate(avg_readout = rowMeans(select(., Replicate1, Replicate2), na.rm = TRUE),
+         sqrt_readout = sqrt(avg_readout),
+         replicate = rep(c(-1, 1), each = 17))
+
+# fit the full second-order model
+model_c <- lm(sqrt_readout ~ A + B + C + D + E +
+                I(A^2) + I(B^2) + I(C^2) + I(D^2) + I(E^2) +
+                A:B + A:C + A:D + A:E +
+                B:C + B:D + B:E +
+                C:D + C:E + D:E +
+                replicate,
+              data = drugs_c)
+
+# View model summary (same estimates as Table III(c))
+summary(model_c)
+
+# Diagnostic plots to check model assumptions
+par(mfrow = c(2, 2))
+plot(model_c)
+
+```
+
+Performing variable selection via stepwise regression to ensure there are no further significant effects before we re-plot the diagnostic plots to check for model assumptions.
+```{r}
+library(MASS)
+
+# Stepwise regression to select significant effects
+step_model <- stepAIC(model_c, direction = "both", trace = FALSE)
+
+# final model output
+summary(step_model)
+
+# Diagnostic plots
+par(mfrow = c(2, 2))
+plot(step_model)
+```
+
+Models a, b, and c outputs are mostly similar to the output in Table 3 of the study, as explained in the MS Word file. 
+
+
+

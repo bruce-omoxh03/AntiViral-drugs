@@ -1,0 +1,806 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={20074027 STAT2003 TASK 2},
+  pdfauthor={Bruce Odek Omondi},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{20074027 STAT2003 TASK 2}
+\author{Bruce Odek Omondi}
+\date{2025-05-12}
+
+\begin{document}
+\maketitle
+
+\hypertarget{question-a}{%
+\section{QUESTION A}\label{question-a}}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  Using an effective experimental design, this experiment aimed to study
+  and evaluate the antiviral effect of different combinations of drugs
+  (the 5 drugs in the study) against a virus (HSV-1), AND to detect any
+  interactions among the different drug components.
+\item
+  The experimental factors are each of the 5 drugs(A,B,C,D,E): A -
+  Alpha, B - beta, C - gamma (Interferon drugs) D - Ribavirin, E -
+  Acyclovir (Chemical drugs)
+\item
+  There are 3 levels for each experimental factor, i.e., each drug. Each
+  one has a different purpose: High (+1) - maximum dosage from pilot
+  study Middle (0) - 32 times diluted from high dosage Low (-1) - no
+  drug
+\end{enumerate}
+
+Having these 3 levels allows the researchers to capture and estimate not
+only the linear and quadratic effects, but also the interaction effect
+among the drug combinations better than a 2-level design, and this is
+crucial for the purpose of understanding how the drugs work together.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The treatments are the combinations of the different drugs at
+  different dosage levels as shown in each run. The researchers did this
+  using a composite design where:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  16 treatments have 3 levels encoded as -1 and 1 to match their dosage
+  level, allowing for estimation of linear and interaction effects.
+\item
+  18 treatments have 3 levels encoded as 0,-1, 1 to match their dosage
+  level. This allowed estimation of linear, quadratic, and interaction
+  effects.
+\item
+  So, there were 34 total treatments (runs) applied to the infected
+  cells.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  The response is the readout, i.e., the percentage of cells infected
+  with the virus. A lower response value indicates better outcome in the
+  drug trial, i.e., the drugs are more effective at reducing the viral
+  infection.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  The basic principles of experiment design used in this study are:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Blocking - althought implicit, the use of a single batch for all
+  experiments to reduce variation from different batches indicates the
+  implementation of blocking
+\item
+  Replication - each treatment was carried out in 2 separate runs to
+  account for variability
+\item
+  Randomization - the 2 independent researchers used random orders AND
+  the 34 runs were randomly assigned to the wells in the plates to avoid
+  bias
+\item
+  Control - the study mentioned a run where there was viral infection
+  but no drug application, which can be used for comparison, indicating
+  the implementation of a control in the experiment
+\end{enumerate}
+
+\hypertarget{question-b}{%
+\section{QUESTION B}\label{question-b}}
+
+\hypertarget{part-1-analysis-to-replicate-estimates-ab-and-c-in-table-iii-using-all-34-runs}{%
+\subsection{1. Part 1: Analysis to replicate estimates a,b, and c in
+Table III using all 34
+runs}\label{part-1-analysis-to-replicate-estimates-ab-and-c-in-table-iii-using-all-34-runs}}
+
+Opening the dataset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load required packages}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.2     v readr     2.1.4
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.4.4     v tibble    3.2.1
+## v lubridate 1.9.2     v tidyr     1.3.0
+## v purrr     1.0.1     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read data}
+\NormalTok{drugdata }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"antiviraldrugs.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I. Estimates in Table III (a) with y=readout and all runs included
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Add average readout (no removal of any outliers, no transformation)}
+\NormalTok{drugs\_a }\OtherTok{\textless{}{-}}\NormalTok{ drugdata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =}\NormalTok{ (Replicate1 }\SpecialCharTok{+}\NormalTok{ Replicate2) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{,}
+         \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{17}\NormalTok{))}
+
+\CommentTok{\# Fit full second{-}order model using raw response}
+\NormalTok{model\_a }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(avg\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+                \FunctionTok{I}\NormalTok{(A}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(B}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(D}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(E}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{                A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                replicate,}
+              \AttributeTok{data =}\NormalTok{ drugs\_a)}
+
+\CommentTok{\# Summary of model (matches Table III(a))}
+\FunctionTok{summary}\NormalTok{(model\_a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = avg_readout ~ A + B + C + D + E + I(A^2) + I(B^2) + 
+##     I(C^2) + I(D^2) + I(E^2) + A:B + A:C + A:D + A:E + B:C + 
+##     B:D + B:E + C:D + C:E + D:E + replicate, data = drugs_a)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.1366 -2.6036 -0.8743  2.4686  8.4523 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  17.87589    6.76783   2.641  0.02152 *  
+## A            -1.59155    1.29155  -1.232  0.24144    
+## B            -2.35092    1.29155  -1.820  0.09374 .  
+## C            -2.00099    1.29155  -1.549  0.14727    
+## D           -19.57614    1.29155 -15.157 3.45e-09 ***
+## E           -13.93498    1.29155 -10.789 1.57e-07 ***
+## I(A^2)        3.52854    3.38347   1.043  0.31756    
+## I(B^2)        0.04055    3.38347   0.012  0.99063    
+## I(C^2)       -1.82319    3.38347  -0.539  0.59984    
+## I(D^2)       -7.33321    3.38347  -2.167  0.05103 .  
+## I(E^2)       15.27194    3.38347   4.514  0.00071 ***
+## replicate    -0.17232    1.83306  -0.094  0.92665    
+## A:B           0.71654    1.40509   0.510  0.61933    
+## A:C           2.33747    1.40509   1.664  0.12207    
+## A:D           1.46124    1.40502   1.040  0.31883    
+## A:E          -1.32398    1.40502  -0.942  0.36461    
+## B:C           1.63732    1.40502   1.165  0.26652    
+## B:D          -0.27370    1.40509  -0.195  0.84881    
+## B:E           1.30919    1.40502   0.932  0.36981    
+## C:D          -0.65668    1.40502  -0.467  0.64860    
+## C:E           0.11626    1.40509   0.083  0.93542    
+## D:E           9.56342    1.40509   6.806 1.89e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.504 on 12 degrees of freedom
+## Multiple R-squared:  0.9762, Adjusted R-squared:  0.9345 
+## F-statistic: 23.42 on 21 and 12 DF,  p-value: 9.551e-07
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Estimates in Table III (b) with y= sqrt(readout) and all runs included
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create data with sqrt(readout) but still including outlier}
+\NormalTok{drugs\_b }\OtherTok{\textless{}{-}}\NormalTok{ drugdata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =}\NormalTok{ (Replicate1 }\SpecialCharTok{+}\NormalTok{ Replicate2) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{,}
+         \AttributeTok{sqrt\_readout =} \FunctionTok{sqrt}\NormalTok{(avg\_readout),}
+         \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{17}\NormalTok{))}
+
+\CommentTok{\# Fit model using sqrt(readout)}
+\NormalTok{model\_b }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(sqrt\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+                \FunctionTok{I}\NormalTok{(A}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(B}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(D}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(E}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{                A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                replicate,}
+              \AttributeTok{data =}\NormalTok{ drugs\_b)}
+
+\CommentTok{\# Summary of model (matches Table III(b))}
+\FunctionTok{summary}\NormalTok{(model\_b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = sqrt_readout ~ A + B + C + D + E + I(A^2) + I(B^2) + 
+##     I(C^2) + I(D^2) + I(E^2) + A:B + A:C + A:D + A:E + B:C + 
+##     B:D + B:E + C:D + C:E + D:E + replicate, data = drugs_b)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.70275 -0.18779 -0.04771  0.17332  0.77122 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  4.045619   0.568363   7.118 1.22e-05 ***
+## A           -0.133744   0.108464  -1.233 0.241159    
+## B           -0.230536   0.108464  -2.125 0.054998 .  
+## C           -0.200151   0.108464  -1.845 0.089798 .  
+## D           -2.059020   0.108464 -18.983 2.56e-10 ***
+## E           -1.217984   0.108464 -11.229 1.01e-07 ***
+## I(A^2)       0.244341   0.284144   0.860 0.406686    
+## I(B^2)       0.074547   0.284144   0.262 0.797497    
+## I(C^2)      -0.001232   0.284144  -0.004 0.996612    
+## I(D^2)      -1.172732   0.284144  -4.127 0.001402 ** 
+## I(E^2)       1.393339   0.284144   4.904 0.000364 ***
+## replicate   -0.012681   0.153941  -0.082 0.935707    
+## A:B          0.124954   0.118000   1.059 0.310481    
+## A:C          0.259862   0.118000   2.202 0.047945 *  
+## A:D          0.072360   0.117994   0.613 0.551156    
+## A:E         -0.130754   0.117994  -1.108 0.289515    
+## B:C          0.142028   0.117994   1.204 0.251915    
+## B:D         -0.093080   0.118000  -0.789 0.445524    
+## B:E          0.129679   0.117994   1.099 0.293313    
+## C:D         -0.105543   0.117994  -0.894 0.388652    
+## C:E          0.053797   0.118000   0.456 0.656596    
+## D:E          0.535907   0.118000   4.542 0.000676 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5462 on 12 degrees of freedom
+## Multiple R-squared:  0.9815, Adjusted R-squared:  0.9492 
+## F-statistic: 30.37 on 21 and 12 DF,  p-value: 2.17e-07
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Estimates in Table III (c) with y= sqrt(readout) and run 14 of
+  Replicate 1 removed
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clean the dataset: remove replicate 1 of run 14, compute averages, apply transformation, encode replicate variable}
+\NormalTok{drugs\_c }\OtherTok{\textless{}{-}}\NormalTok{ drugdata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Replicate1 =} \FunctionTok{ifelse}\NormalTok{(Run }\SpecialCharTok{==} \DecValTok{14}\NormalTok{, }\ConstantTok{NA}\NormalTok{, Replicate1)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =} \FunctionTok{rowMeans}\NormalTok{(}\FunctionTok{select}\NormalTok{(., Replicate1, Replicate2), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+         \AttributeTok{sqrt\_readout =} \FunctionTok{sqrt}\NormalTok{(avg\_readout),}
+         \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{17}\NormalTok{))}
+
+\CommentTok{\# Fit the full second{-}order model}
+\NormalTok{model\_c }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(sqrt\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+                \FunctionTok{I}\NormalTok{(A}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(B}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(D}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(E}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{                A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                replicate,}
+              \AttributeTok{data =}\NormalTok{ drugs\_c)}
+
+\CommentTok{\# View model summary (this reproduces Table III(c))}
+\FunctionTok{summary}\NormalTok{(model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = sqrt_readout ~ A + B + C + D + E + I(A^2) + I(B^2) + 
+##     I(C^2) + I(D^2) + I(E^2) + A:B + A:C + A:D + A:E + B:C + 
+##     B:D + B:E + C:D + C:E + D:E + replicate, data = drugs_c)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5020 -0.1979 -0.0292  0.1546  0.5969 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  4.02584    0.47738   8.433 2.18e-06 ***
+## A           -0.10962    0.09110  -1.203 0.252052    
+## B           -0.26608    0.09110  -2.921 0.012823 *  
+## C           -0.22067    0.09110  -2.422 0.032183 *  
+## D           -2.03490    0.09110 -22.337 3.83e-11 ***
+## E           -1.23851    0.09110 -13.595 1.19e-08 ***
+## I(A^2)       0.25507    0.23866   1.069 0.306197    
+## I(B^2)       0.06670    0.23866   0.279 0.784649    
+## I(C^2)      -0.01213    0.23866  -0.051 0.960285    
+## I(D^2)      -1.16200    0.23866  -4.869 0.000386 ***
+## I(E^2)       1.38244    0.23866   5.793 8.57e-05 ***
+## replicate    0.01778    0.12930   0.137 0.892924    
+## A:B          0.16523    0.09911   1.667 0.121348    
+## A:C          0.28653    0.09911   2.891 0.013552 *  
+## A:D          0.04496    0.09911   0.454 0.658203    
+## A:E         -0.09556    0.09911  -0.964 0.353968    
+## B:C          0.10195    0.09911   1.029 0.323922    
+## B:D         -0.05280    0.09911  -0.533 0.603937    
+## B:E          0.08960    0.09911   0.904 0.383750    
+## C:D         -0.07035    0.09911  -0.710 0.491375    
+## C:E          0.02021    0.09911   0.204 0.841847    
+## D:E          0.56257    0.09911   5.676 0.000103 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4588 on 12 degrees of freedom
+## Multiple R-squared:  0.9869, Adjusted R-squared:  0.9639 
+## F-statistic: 42.96 on 21 and 12 DF,  p-value: 2.923e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Diagnostic plots to check model assumptions}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Omondi-2074027-Task-2_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+Performing variable selection via stepwise regression to ensure there
+are no further significant effects before we re-plot the diagnostic
+plots to check for model assumptions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Stepwise regression to select significant effects}
+\NormalTok{step\_model }\OtherTok{\textless{}{-}} \FunctionTok{stepAIC}\NormalTok{(model\_c, }\AttributeTok{direction =} \StringTok{"both"}\NormalTok{, }\AttributeTok{trace =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# Step 6: View final model summary}
+\FunctionTok{summary}\NormalTok{(step\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = sqrt_readout ~ A + B + C + D + E + I(A^2) + I(D^2) + 
+##     I(E^2) + A:B + A:C + A:E + B:C + D:E, data = drugs_c)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.4590 -0.2182 -0.1234  0.2554  0.6367 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  4.09019    0.22218  18.409 5.22e-14 ***
+## A           -0.10242    0.07341  -1.395  0.17827    
+## B           -0.27317    0.07371  -3.706  0.00140 ** 
+## C           -0.21201    0.07360  -2.880  0.00925 ** 
+## D           -2.04714    0.07421 -27.585  < 2e-16 ***
+## E           -1.21788    0.07382 -16.499 4.10e-13 ***
+## I(A^2)       0.24187    0.17887   1.352  0.19140    
+## I(D^2)      -1.14291    0.17969  -6.361 3.31e-06 ***
+## I(E^2)       1.35297    0.17909   7.555 2.79e-07 ***
+## A:B          0.15727    0.08096   1.943  0.06628 .  
+## A:C          0.29607    0.08096   3.657  0.00157 ** 
+## A:E         -0.10175    0.08060  -1.262  0.22133    
+## B:C          0.10690    0.08166   1.309  0.20537    
+## D:E          0.56397    0.08189   6.887 1.09e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3821 on 20 degrees of freedom
+## Multiple R-squared:  0.9848, Adjusted R-squared:  0.975 
+## F-statistic: 99.81 on 13 and 20 DF,  p-value: 2.989e-15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Diagnostic plots}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(step\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Omondi-2074027-Task-2_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{part-2-analysis-for-16-run-design-only}{%
+\subsection{2. Part 2: Analysis for 16-run design
+only}\label{part-2-analysis-for-16-run-design-only}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Subset only the first 16 runs (2{-}level factorial design)}
+\NormalTok{drugdata\_16 }\OtherTok{\textless{}{-}}\NormalTok{ drugdata[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{, ]}
+
+\DocumentationTok{\#\# a) Model using raw readout (no transformation, no outlier removed)}
+\NormalTok{drugs16\_a }\OtherTok{\textless{}{-}}\NormalTok{ drugdata\_16 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =}\NormalTok{ (Replicate1 }\SpecialCharTok{+}\NormalTok{ Replicate2) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{,}
+         \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{8}\NormalTok{))}
+
+\NormalTok{model16\_a }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(avg\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+\NormalTok{                  A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  replicate,}
+                \AttributeTok{data =}\NormalTok{ drugs16\_a)}
+
+\FunctionTok{summary}\NormalTok{(model16\_a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = avg_readout ~ A + B + C + D + E + A:B + A:C + A:D + 
+##     A:E + B:C + B:D + B:E + C:D + C:E + D:E + replicate, data = drugs16_a)
+## 
+## Residuals:
+## ALL 16 residuals are 0: no residual degrees of freedom!
+## 
+## Coefficients: (1 not defined because of singularities)
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept)  27.8469        NaN     NaN      NaN
+## A            -2.9906        NaN     NaN      NaN
+## B            -2.5469        NaN     NaN      NaN
+## C             0.5375        NaN     NaN      NaN
+## D           -19.6250        NaN     NaN      NaN
+## E           -10.9687        NaN     NaN      NaN
+## replicate    -2.7062        NaN     NaN      NaN
+## A:B               NA         NA      NA       NA
+## A:C           0.8094        NaN     NaN      NaN
+## A:D           1.9969        NaN     NaN      NaN
+## A:E          -1.3219        NaN     NaN      NaN
+## B:C           2.4781        NaN     NaN      NaN
+## B:D           0.2781        NaN     NaN      NaN
+## B:E           1.1719        NaN     NaN      NaN
+## C:D          -0.8906        NaN     NaN      NaN
+## C:E           0.1656        NaN     NaN      NaN
+## D:E           9.0156        NaN     NaN      NaN
+## 
+## Residual standard error: NaN on 0 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
+## F-statistic:   NaN on 15 and 0 DF,  p-value: NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# b) Model using sqrt(readout), no outlier removed}
+\NormalTok{drugs16\_b }\OtherTok{\textless{}{-}}\NormalTok{ drugdata\_16 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =}\NormalTok{ (Replicate1 }\SpecialCharTok{+}\NormalTok{ Replicate2) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{,}
+         \AttributeTok{sqrt\_readout =} \FunctionTok{sqrt}\NormalTok{(avg\_readout),}
+         \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{8}\NormalTok{))}
+
+\NormalTok{model16\_b }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(sqrt\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+\NormalTok{                  A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  replicate,}
+                \AttributeTok{data =}\NormalTok{ drugs16\_b)}
+
+\FunctionTok{summary}\NormalTok{(model16\_b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = sqrt_readout ~ A + B + C + D + E + A:B + A:C + A:D + 
+##     A:E + B:C + B:D + B:E + C:D + C:E + D:E + replicate, data = drugs16_b)
+## 
+## Residuals:
+## ALL 16 residuals are 0: no residual degrees of freedom!
+## 
+## Coefficients: (1 not defined because of singularities)
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept)  4.62587        NaN     NaN      NaN
+## A           -0.28113        NaN     NaN      NaN
+## B           -0.28603        NaN     NaN      NaN
+## C            0.01286        NaN     NaN      NaN
+## D           -2.00331        NaN     NaN      NaN
+## E           -0.95730        NaN     NaN      NaN
+## replicate   -0.28371        NaN     NaN      NaN
+## A:B               NA         NA      NA       NA
+## A:C          0.15356        NaN     NaN      NaN
+## A:D          0.17699        NaN     NaN      NaN
+## A:E         -0.12178        NaN     NaN      NaN
+## B:C          0.26711        NaN     NaN      NaN
+## B:D         -0.07783        NaN     NaN      NaN
+## B:E          0.13509        NaN     NaN      NaN
+## C:D         -0.13066        NaN     NaN      NaN
+## C:E          0.06971        NaN     NaN      NaN
+## D:E          0.50335        NaN     NaN      NaN
+## 
+## Residual standard error: NaN on 0 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
+## F-statistic:   NaN on 15 and 0 DF,  p-value: NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# c) Model using sqrt(readout), with outlier removed (Run 14 replicate 1 removed)}
+\NormalTok{drugs16\_c }\OtherTok{\textless{}{-}}\NormalTok{ drugdata\_16 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{avg\_readout =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    Run }\SpecialCharTok{==} \DecValTok{14} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Replicate2,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ (Replicate1 }\SpecialCharTok{+}\NormalTok{ Replicate2) }\SpecialCharTok{/} \DecValTok{2}
+\NormalTok{  ),}
+  \AttributeTok{sqrt\_readout =} \FunctionTok{sqrt}\NormalTok{(avg\_readout),}
+  \AttributeTok{replicate =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{each =} \DecValTok{8}\NormalTok{))}
+
+\NormalTok{model16\_c }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(sqrt\_readout }\SpecialCharTok{\textasciitilde{}}\NormalTok{ A }\SpecialCharTok{+}\NormalTok{ B }\SpecialCharTok{+}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ D }\SpecialCharTok{+}\NormalTok{ E }\SpecialCharTok{+}
+\NormalTok{                  A}\SpecialCharTok{:}\NormalTok{B }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ A}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  B}\SpecialCharTok{:}\NormalTok{C }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ B}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  C}\SpecialCharTok{:}\NormalTok{D }\SpecialCharTok{+}\NormalTok{ C}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}\NormalTok{ D}\SpecialCharTok{:}\NormalTok{E }\SpecialCharTok{+}
+\NormalTok{                  replicate,}
+                \AttributeTok{data =}\NormalTok{ drugs16\_c)}
+
+\FunctionTok{summary}\NormalTok{(model16\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = sqrt_readout ~ A + B + C + D + E + A:B + A:C + A:D + 
+##     A:E + B:C + B:D + B:E + C:D + C:E + D:E + replicate, data = drugs16_c)
+## 
+## Residuals:
+## ALL 16 residuals are 0: no residual degrees of freedom!
+## 
+## Coefficients: (1 not defined because of singularities)
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept)  4.56951        NaN     NaN      NaN
+## A           -0.22477        NaN     NaN      NaN
+## B           -0.34239        NaN     NaN      NaN
+## C            0.01286        NaN     NaN      NaN
+## D           -1.89059        NaN     NaN      NaN
+## E           -0.95730        NaN     NaN      NaN
+## replicate   -0.39643        NaN     NaN      NaN
+## A:B               NA         NA      NA       NA
+## A:C          0.20992        NaN     NaN      NaN
+## A:D          0.12063        NaN     NaN      NaN
+## A:E         -0.06542        NaN     NaN      NaN
+## B:C          0.21075        NaN     NaN      NaN
+## B:D         -0.02147        NaN     NaN      NaN
+## B:E          0.07873        NaN     NaN      NaN
+## C:D         -0.07430        NaN     NaN      NaN
+## C:E          0.01335        NaN     NaN      NaN
+## D:E          0.55971        NaN     NaN      NaN
+## 
+## Residual standard error: NaN on 0 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
+## F-statistic:   NaN on 15 and 0 DF,  p-value: NA
+\end{verbatim}
+
+Determining the significant effects due to the saturated nature of the
+16-run design
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load required package for half{-}normal plot}
+\CommentTok{\#install.packages("FrF2")  \# Run only once if not already installed}
+\FunctionTok{library}\NormalTok{(FrF2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: DoE.base
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: grid
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: conf.design
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'DoE.base':
+##   method           from       
+##   factorize.factor conf.design
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'DoE.base'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     aov, lm
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     plot.design
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     lengths
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Function to create custom half{-}normal plot}
+\NormalTok{custom\_half\_normal }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model, model\_name) \{}
+  \CommentTok{\# Extract coefficients excluding intercept}
+\NormalTok{  effects }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(model)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{  abs\_effects }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{abs}\NormalTok{(effects), }\AttributeTok{decreasing =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#absolute effects for y{-}axis}
+  
+  \CommentTok{\# Compute half{-}normal quantiles}
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(abs\_effects)}
+\NormalTok{  quantiles }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{((}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n }\SpecialCharTok{{-}} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ n)}
+  
+  \CommentTok{\# Plot}
+  \FunctionTok{plot}\NormalTok{(quantiles, abs\_effects,}
+       \AttributeTok{main =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Half{-}Normal Plot –"}\NormalTok{, model\_name),}
+       \AttributeTok{xlab =} \StringTok{"Normal Quantiles"}\NormalTok{,}
+       \AttributeTok{ylab =} \StringTok{"Absolute Effect"}\NormalTok{,}
+       \AttributeTok{pch =} \DecValTok{19}\NormalTok{)}
+  \FunctionTok{text}\NormalTok{(quantiles, abs\_effects, }\AttributeTok{labels =} \FunctionTok{names}\NormalTok{(abs\_effects), }\AttributeTok{pos =} \DecValTok{3}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.7}\NormalTok{)}
+  \FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(abs\_effects }\SpecialCharTok{\textasciitilde{}}\NormalTok{ quantiles), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# Plot all three }
+\FunctionTok{custom\_half\_normal}\NormalTok{(model16\_a, }\StringTok{"Model 16a"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Omondi-2074027-Task-2_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{custom\_half\_normal}\NormalTok{(model16\_b, }\StringTok{"Model 16b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Omondi-2074027-Task-2_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{custom\_half\_normal}\NormalTok{(model16\_c, }\StringTok{"Model 16c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Omondi-2074027-Task-2_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\end{document}
